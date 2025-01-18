@@ -5,18 +5,18 @@ interface Props {
   activeCount: number
   completedCount: number
   filterSelected: FilterValue
-  onClearCompleted: () => void,
+  onClearCompleted: () => void
   handleFilterChange: (filter: FilterValue) => void
 }
 
 export const Footer: React.FC<Props> = ({
-  activeCount = 0, 
+  activeCount = 0,
   completedCount = 0,
   filterSelected,
   handleFilterChange,
-  onClearCompleted
+  onClearCompleted,
 }) => {
-  return ( 
+  return (
     <footer className="footer">
       <span className="todo-count">
         <strong>{activeCount}</strong> Pending Tasks
@@ -27,16 +27,11 @@ export const Footer: React.FC<Props> = ({
         onFilterChange={handleFilterChange}
       />
 
-      {
-        completedCount > 0 && (
-          <button
-            className="clear-completed"
-            onClick={onClearCompleted}
-          >
-            Clear Completed
-          </button>
-        )
-      }
+      {completedCount > 0 && (
+        <button className="clear-completed" onClick={onClearCompleted}>
+          Clear Completed
+        </button>
+      )}
     </footer>
   )
 }
