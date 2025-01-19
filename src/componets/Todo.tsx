@@ -3,7 +3,6 @@ import { type Todo as TodoType } from "../types"
 import { useTodos } from "../hooks/useTodos"
 
 interface Props extends TodoType {
-  setTitle: ({ id, title }: Pick<TodoType, "id" | "title">) => void
   isEditing: string
   setIsEditing: (completed: string) => void
 }
