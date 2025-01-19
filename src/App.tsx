@@ -1,6 +1,6 @@
-import { Todos } from "./componets/Todos"
-import { Footer } from "./componets/Footer"
-import { Header } from "./componets/Header"
+import { Todos } from "./components/Todos"
+import { Footer } from "./components/Footer"
+import { Header } from "./components/Header"
 
 const App = () => {
   return (
