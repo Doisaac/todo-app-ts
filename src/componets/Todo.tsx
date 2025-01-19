@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { TodoId, type Todo as TodoType } from "../types"
+import { type Todo as TodoType } from "../types"
+import { useTodos } from "../hooks/useTodos"
 
 interface Props extends TodoType {
-  onToggleCompleteTodo: ({
-    id,
-    completed,
-  }: Pick<TodoType, "id" | "completed">) => void
-  onRemoveTodo: ({ id }: TodoId) => void
   setTitle: ({ id, title }: Pick<TodoType, "id" | "title">) => void
   isEditing: string
   setIsEditing: (completed: string) => void
@@ -16,14 +12,12 @@ export const Todo: React.FC<Props> = ({
   id,
   title,
   completed,
-  onRemoveTodo,
-  onToggleCompleteTodo,
-  setTitle,
   isEditing,
   setIsEditing,
 }) => {
   const [editedTitle, setEditedTitle] = useState(title)
   const inputEditTitle = useRef<HTMLInputElement>(null)
+  const { handleRemove, handleCompleted, handleUpdateTitle } = useTodos()
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
     event
@@ -32,10 +26,10 @@ export const Todo: React.FC<Props> = ({
       setEditedTitle(editedTitle.trim())
 
       if (editedTitle !== title) {
-        setTitle({ id, title: editedTitle })
+        handleUpdateTitle({ id, title: editedTitle })
       }
 
-      if (editedTitle === "") onRemoveTodo({ id })
+      if (editedTitle === "") handleRemove({ id })
 
       setIsEditing("")
     }
@@ -46,7 +40,7 @@ export const Todo: React.FC<Props> = ({
   }, [isEditing])
 
   const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onToggleCompleteTodo({ id, completed: event.target.checked })
+    handleCompleted({ id, completed: event.target.checked })
   }
 
   return (
@@ -62,7 +56,7 @@ export const Todo: React.FC<Props> = ({
         <button
           className="destroy"
           onClick={() => {
-            onRemoveTodo({ id })
+            handleRemove({ id })
           }}
         />
       </div>

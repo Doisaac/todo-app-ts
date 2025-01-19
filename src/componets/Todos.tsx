@@ -1,24 +1,11 @@
 import { useState } from "react"
-import { type Todo as TodoType, type TodoId, type ListOfTodos } from "../types"
 import { Todo } from "./Todo"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
+import { useTodos } from "../hooks/useTodos"
 
-interface Props {
-  todos: ListOfTodos
-  onToggleCompleteTodo: ({
-    id,
-    completed,
-  }: Pick<TodoType, "id" | "completed">) => void
-  onRemoveTodo: ({ id }: TodoId) => void
-  setTitle: ({ id, title }: Pick<TodoType, "id" | "title">) => void
-}
 
-export const Todos: React.FC<Props> = ({
-  todos,
-  onRemoveTodo,
-  onToggleCompleteTodo,
-  setTitle,
-}) => {
+export const Todos: React.FC = () => {
+  const { todos } = useTodos()
   const [isEditing, setIsEditing] = useState("")
   const [parent] = useAutoAnimate()
 
@@ -38,9 +25,6 @@ export const Todos: React.FC<Props> = ({
             id={todo.id}
             title={todo.title}
             completed={todo.completed}
-            onRemoveTodo={onRemoveTodo}
-            onToggleCompleteTodo={onToggleCompleteTodo}
-            setTitle={setTitle}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
           />

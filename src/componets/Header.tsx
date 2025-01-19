@@ -1,11 +1,9 @@
-import { TodoTitle } from "../types"
+import { useTodos } from "../hooks/useTodos"
 import { CreateTodo } from "./CreateTodo"
 
-interface Props {
-  onAddTodo: ({ title }: TodoTitle) => void
-}
+export const Header: React.FC = () => {
+  const { handleAddTodo } = useTodos()
 
-export const Header: React.FC<Props> = ({ onAddTodo }) => {
   return (
     <header className="header">
       <h1>
@@ -16,7 +14,7 @@ export const Header: React.FC<Props> = ({ onAddTodo }) => {
         ></img>
       </h1>
 
-      <CreateTodo saveTodo={onAddTodo} />
+      <CreateTodo saveTodo={handleAddTodo} />
     </header>
   )
 }
